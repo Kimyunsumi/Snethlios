@@ -1,9 +1,14 @@
 package form;
 
 import chart.ModelChart;
+import com.snethlios.dao.PhieuXuatDAO;
+import com.snethlios.dao.ThongKeDAO;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 import model.Model_Card;
 
 public class ThongKeJPanel extends javax.swing.JPanel {
@@ -27,6 +32,7 @@ public class ThongKeJPanel extends javax.swing.JPanel {
         chart.addData(new ModelChart("April", new double[]{480, 150, 750,700}));
         chart.addData(new ModelChart("May", new double[]{350, 540, 300,150}));
         chart.addData(new ModelChart("June", new double[]{190, 280, 81,200}));
+        init();
     }
 
     @SuppressWarnings("unchecked")
@@ -45,11 +51,11 @@ public class ThongKeJPanel extends javax.swing.JPanel {
         jPanel35 = new javax.swing.JPanel();
         jLabel51 = new javax.swing.JLabel();
         jScrollPane12 = new javax.swing.JScrollPane();
-        jTable8 = new javax.swing.JTable();
+        tblDoanhThu = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
         chart = new chart.ChartJPanel();
         Năm = new javax.swing.JLabel();
-        jComboBox10 = new javax.swing.JComboBox<>();
+        cboNam = new javax.swing.JComboBox<>();
         Năm1 = new javax.swing.JLabel();
         ThongKe_rdoBang = new javax.swing.JRadioButton();
         ThongKe_rdoBieuDo = new javax.swing.JRadioButton();
@@ -57,7 +63,7 @@ public class ThongKeJPanel extends javax.swing.JPanel {
         pnlSanPham = new javax.swing.JPanel();
         jLabel52 = new javax.swing.JLabel();
         jScrollPane13 = new javax.swing.JScrollPane();
-        jTable9 = new javax.swing.JTable();
+        tblSanPham = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(247, 247, 247));
 
@@ -89,7 +95,7 @@ public class ThongKeJPanel extends javax.swing.JPanel {
         jLabel51.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel51.setText("CHI TIẾT DOANH THU");
 
-        jTable8.setModel(new javax.swing.table.DefaultTableModel(
+        tblDoanhThu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -97,10 +103,10 @@ public class ThongKeJPanel extends javax.swing.JPanel {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Tháng", "Sản phẩm bán", "Tổng số bán", "Tổng giảm giá", "Doanh thu"
+                "Tháng", "Tổng số bán", "Tổng giá bán", "Tổng giảm giá", "Doanh thu"
             }
         ));
-        jScrollPane12.setViewportView(jTable8);
+        jScrollPane12.setViewportView(tblDoanhThu);
 
         javax.swing.GroupLayout jPanel35Layout = new javax.swing.GroupLayout(jPanel35);
         jPanel35.setLayout(jPanel35Layout);
@@ -154,8 +160,6 @@ public class ThongKeJPanel extends javax.swing.JPanel {
 
         Năm.setText("Năm");
 
-        jComboBox10.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         Năm1.setText("Lựa chọn hiển thị ");
 
         buttonGroup1.add(ThongKe_rdoBang);
@@ -185,7 +189,7 @@ public class ThongKeJPanel extends javax.swing.JPanel {
                 .addGap(21, 21, 21)
                 .addGroup(pnlDoanhThuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Năm)
-                    .addComponent(jComboBox10, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cboNam, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Năm1)
                     .addGroup(pnlDoanhThuLayout.createSequentialGroup()
                         .addComponent(ThongKe_rdoBang)
@@ -205,7 +209,7 @@ public class ThongKeJPanel extends javax.swing.JPanel {
                 .addGap(42, 42, 42)
                 .addComponent(Năm)
                 .addGap(18, 18, 18)
-                .addComponent(jComboBox10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cboNam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Năm1)
                 .addGap(28, 28, 28)
@@ -228,7 +232,7 @@ public class ThongKeJPanel extends javax.swing.JPanel {
         jLabel52.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel52.setText("CHI TIẾT SẢN PHẨM");
 
-        jTable9.setModel(new javax.swing.table.DefaultTableModel(
+        tblSanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -239,7 +243,7 @@ public class ThongKeJPanel extends javax.swing.JPanel {
                 "Mã SP", "Tên SP", "Số lượng đã bán", "Số lượng còn lại"
             }
         ));
-        jScrollPane13.setViewportView(jTable9);
+        jScrollPane13.setViewportView(tblSanPham);
 
         javax.swing.GroupLayout pnlSanPhamLayout = new javax.swing.GroupLayout(pnlSanPham);
         pnlSanPham.setLayout(pnlSanPhamLayout);
@@ -313,9 +317,9 @@ public class ThongKeJPanel extends javax.swing.JPanel {
     private component.CardJPanel card2;
     private component.CardJPanel card3;
     private component.CardJPanel card4;
+    private javax.swing.JComboBox<String> cboNam;
     private chart.ChartJPanel chart;
     private javax.swing.JButton jButton19;
-    private javax.swing.JComboBox<String> jComboBox10;
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
     private javax.swing.JPanel jPanel1;
@@ -324,10 +328,47 @@ public class ThongKeJPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable8;
-    private javax.swing.JTable jTable9;
     private javax.swing.JPanel pnlCard;
     private javax.swing.JPanel pnlDoanhThu;
     private javax.swing.JPanel pnlSanPham;
+    private javax.swing.JTable tblDoanhThu;
+    private javax.swing.JTable tblSanPham;
     // End of variables declaration//GEN-END:variables
+    ThongKeDAO dao = new ThongKeDAO();
+    PhieuXuatDAO pxdao = new PhieuXuatDAO();
+    
+    void init() {
+        this.fillComboBoxNam();
+        
+    }
+    private void fillComboBoxNam() {
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cboNam.getModel();
+        model.removeAllElements();
+        List<Integer> list = pxdao.selectYears();
+        for (Integer year : list) {
+            model.addElement(year);
+        }
+    }
+//    private void fillTableDoanhThu() {
+//        DefaultTableModel model = (DefaultTableModel) tblDoanhThu.getModel();
+//        model.setRowCount(0);
+//        int nam = (Integer) cboNam.getSelectedItem();
+//        List<Object[]> list = dao.getDoanhThu(nam);
+//        for (Object[] row : list) {
+//            model.addRow(row);
+//        }
+//
+//    }
+    //    private void fillTableSanPham() {
+//        DefaultTableModel model = (DefaultTableModel) tblDoanhThu.getModel();
+//        model.setRowCount(0);
+//        int nam = (Integer) cboNam.getSelectedItem();
+//        List<Object[]> list = dao.getDoanhThu(nam);
+//        for (Object[] row : list) {
+//            model.addRow(row);
+//        }
+//
+//    }
+    
+
 }

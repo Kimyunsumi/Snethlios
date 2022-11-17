@@ -122,21 +122,26 @@ insert into KhachHang values ('KH004',N'Lê Đặng Trung Anh',N'2356/12 Lê Đ�
 
 --insert phieuxuat
 insert into PHIEUXUAT values('2022-9-15',N'Không',N'Đã giao',N'Đặt hàng', 'HoanHD','KH001')
-insert into PHIEUXUAT values('2022-10-1',N'Không',N'Đã giao',N'Trực tiếp', 'HaiNV','KH002')
-insert into PHIEUXUAT values('2022-6-25',N'Không',N'Đã giao',N'Trực tiếp', 'HoanHD','KH003')
+insert into PHIEUXUAT values('2021-10-1',N'Không',N'Đã giao',N'Trực tiếp', 'HaiNV','KH002')
+insert into PHIEUXUAT values('2020-6-25',N'Không',N'Đã giao',N'Trực tiếp', 'HoanHD','KH003')
 insert into PHIEUXUAT values('2022-4-15',N'Không',N'Đã giao',N'Đặt hàng', 'ThaiNA','KH004')
+insert into PHIEUXUAT values('2022-9-04',N'Không',N'Đã giao',N'Trực tiếp', 'ThaiNA','KH002')
+insert into PHIEUXUAT values('2022-6-27',N'Không',N'Đã giao',N'Trực tiếp', 'HoanHD','KH003')
 
 --CTPX
 insert into CTPX values (1,'AD1',900000,1)
 insert into CTPX values (2,'NK1',400000,5)
 insert into CTPX values (3,'PM1',600000,3)
 insert into CTPX values (4,'AF11999',100000,2)
+insert into CTPX values (5,'NK1',400000,6)
+insert into CTPX values (6,'PM1',600000,2)
 
 --thanhvien
 insert into ThanhVien values('TV01',2,'2022-9-11','2023-9-11','KH003')
 insert into ThanhVien values('TV02',4,'2022-6-12','2023-6-12','KH004')
 insert into ThanhVien values('TV03',18,'2022-10-11','2023-10-11','KH001')
 insert into ThanhVien values('TV04',30,'2022-10-11','2023-10-11','KH002')
+
 
 select * from nhanvien
 select * from SANPHAM
