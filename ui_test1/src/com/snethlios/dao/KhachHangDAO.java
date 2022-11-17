@@ -53,10 +53,10 @@ public class KhachHangDAO extends SnethliosDAO<KhachHang, String>{
     }
 
     @Override
-    public void delete(String key) {
+    public void delete(String Makh) {
        String sql = "delete from KHACHHANG where MAKH =?";
         try {
-            JdbcHelper.update(sql, key);
+            JdbcHelper.update(sql, Makh);
         } catch (SQLException ex) {
             Logger.getLogger(KhachHangDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

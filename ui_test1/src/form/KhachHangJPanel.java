@@ -7,8 +7,11 @@ package form;
 import com.snethlios.dao.KhachHangDAO;
 import com.snethlios.dao.ThanhVienDAO;
 import com.snethlios.entity.KhachHang;
+import com.snethlios.entity.SanPham;
 import com.snethlios.entity.ThanhVien;
+import com.snethlios.utils.Auth;
 import com.snethlios.utils.DateHelper;
+import com.snethlios.utils.MsgBox;
 import com.snethlios.utils.XDate;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -1174,12 +1177,36 @@ public class KhachHangJPanel extends javax.swing.JPanel {
         }
     }
     void chen(){
-        
     }
+    
     void capnhat(){
-        
+    KhachHang kh = getFormKH();
+        try {
+            khdao.update(kh);
+            this.fillToTable();
+            MsgBox.alert(this, "Cập nhật thành công!");
+        } catch (Exception e) {
+            MsgBox.alert(this, "Cập nhật thất bại!");
+        }
+       
     }
     void xoa(){
-        
+        if (!Auth.isManager()) {
+            MsgBox.alert(this, "Bạn không có quyền xóa khách hàng!");
+        } else {
+            String makh = KhachHang_txtmakh.getText();
+            if (makh.equals(Auth.user.getMaNV())) {
+                MsgBox.alert(this, "Bạn không được xóa chính bạn!");
+            } else if (MsgBox.confirm(this, "Bạn có thực sự muốn xóa khách hàng này?")) {
+                try {
+                    khdao.delete(makh);
+                    this.fillToTable();
+                    this.moi();
+                    MsgBox.alert(this, "Xóa thành công");
+                } catch (Exception e) {
+                    MsgBox.alert(this, "Xóa thất bại");
+                }
+            }
+        }
     }
 }
